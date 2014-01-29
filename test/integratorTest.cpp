@@ -1,3 +1,4 @@
+#include <nbody/CelestialSystem.h>
 #include <nbody/Integrator.h>
 #include <gtest/gtest.h>
 
@@ -69,4 +70,17 @@ TEST( integratorTest, trapezoidal )
   ASSERT_FLOAT_EQ( es.getVelocity( 1 ).x(), 0.0 );
   ASSERT_FLOAT_EQ( es.getVelocity( 1 ).y(), -27.617188 );
   ASSERT_FLOAT_EQ( es.getVelocity( 1 ).z(), 0.0 );
+}
+
+TEST( integratorTest, rk4 )
+{
+  std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" };
+  auto cs = CelestialSystem( sysFile );
+  auto rk = RK4();
+
+  for ( size_t i = 0; i < 1000; i++ )
+    rk.step( &cs, 0.01f );
+  std::cout << "pos0: " << cs.getPosition( 0 ) << " vel0: " << cs.getVelocity( 0 ) << std::endl;
+  std::cout << "pos1: " << cs.getPosition( 1 ) << " vel1: " << cs.getVelocity( 1 ) << std::endl;
+
 }
