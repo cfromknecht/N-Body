@@ -33,5 +33,9 @@ RK4::step( ParticleSystem *sys,
            float          h )
 {
   std::vector< Vector3f > X0 = sys->getState();
-
+  std::vector< Vector3f > k1 = sys->getState();
+  std::vector< Vector3f > k2, k3, k4;
+  k2.reserve( X0.size() ); k3.reserve( X0.size() ); k4.reserve( X0.size() );
+  for ( size_t i = 0; i < X0.size(); i++ )
+    k2.push_back( X0[i] + k1[i] * h / 2.0f );
 }
