@@ -24,7 +24,7 @@ Trapezoidal::step( ParticleSystem *sys,
     X0[i] += h * step0[i];
   std::vector< Vector3f > step1 = sys->evalF( X0 );
   for ( size_t i = 0; i < X1.size(); i++ )
-    X1[i] += h * (step0[i] + step1[i]) / (float) 2.0;
+    X1[i] += h * (step0[i] + step1[i]) / 2.0f;
   sys->setState( X1 );
 }
 
