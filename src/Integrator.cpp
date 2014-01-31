@@ -34,23 +34,22 @@ RK4::step( ParticleSystem *sys,
 {
   std::vector< Vector3f > Xi = sys->getState();
   std::vector< Vector3f > Xf = sys->getState();
-  std::vector< Vector3f > xbuf = sys->getState(); 
   std::vector< Vector3f > k1, k2, k3, k4;
   k1 = sys->evalF( Xi );
   k2.reserve( Xi.size() ); k3.reserve( Xi.size() ); k4.reserve( Xi.size() );
   for ( size_t i = 0; i < Xi.size(); i++ )
-    xbuf[i] += k1[i] * h / 2.0f;
-  k2 = sys->evalF( xbuf );
+    Xi[i] += k1[i] * h / 2.0f;
+  k2 = sys->evalF( Xi );
 
-  xbuf = sys->getState();
+  Xi = sys->getState();
   for ( size_t i = 0; i < Xi.size(); i++ )
-    xbuf[i] += k2[i] * h / 2.0f;
-  k3 = sys->evalF( xbuf );
+    Xi[i] += k2[i] * h / 2.0f;
+  k3 = sys->evalF( Xi );
 
-  xbuf = sys->getState();
+  Xi = sys->getState();
   for ( size_t i = 0; i < Xi.size(); i++ )
-    xbuf[i] += k3[i] * h;
-  k4 = sys->evalF( xbuf );
+    Xi[i] += k3[i] * h;
+  k4 = sys->evalF( Xi );
 
   for ( size_t i = 0; i < Xi.size(); i++ )
     Xf[i] += h / 6.0f * (k1[i] + 2.0f * k2[i] + 2.0f *k3[i] + k4[i]);
