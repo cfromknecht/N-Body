@@ -52,7 +52,7 @@ RK4::step( ParticleSystem *sys,
   k4 = sys->evalF( Xi );
 
   for ( size_t i = 0; i < Xi.size(); i++ )
-    Xf[i] += h / 6.0f * (k1[i] + 2.0f * k2[i] + 2.0f *k3[i] + k4[i]);
+    Xf[i] += h * (k1[i] + 2.0f * k2[i] + 2.0f *k3[i] + k4[i]) / 6.0f;
 
   sys->setState( Xf );
 }
