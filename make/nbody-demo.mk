@@ -11,11 +11,20 @@ $(TARGET_PROJ_DEMO) : $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a
 
 ## Link our nbody-demo.x executable with libnbody.a
 ## (here is where you add any extra third-party library linkings needed)
-$(TARGET_PROJ_DEMO) : LDFLAGS += $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a
+$(TARGET_PROJ_DEMO) : LDFLAGS += $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a \
+                                 -framework Cocoa \
+                                 -framework OpenGL \
+                                 -framework IOKit \
+                                 -framework CoreVideo \
+                                 -lglew \
+                                 /usr/local/Cellar/glew/1.10.0/lib/libGLEW.a \
+                                 /usr/local/lib/libglfw3.a \
 
 ## Add any more files to this list
 OBJECTS_PROJ_DEMO := \
 	$(BUILD_DIR_PROJ_DEMO)/main.o \
+	$(BUILD_DIR_PROJ_DEMO)/GlutWrapper.o \
+	$(BUILD_DIR_PROJ_DEMO)/Shaders.o \
 	#$(BUILD_DIR_PROJ_DEMO)/otherFiles.o \
 	#$(BUILD_DIR_PROJ_DEMO)/moreOtherFiles.o \
 ## Add any more files you like!
