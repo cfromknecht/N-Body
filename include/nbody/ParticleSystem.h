@@ -13,6 +13,7 @@ class ParticleSystem
 public:
   ParticleSystem( size_t nBodies );
   ParticleSystem( std::istream &is );
+  virtual ~ParticleSystem() {}
   virtual std::vector< Vector3f > evalF( const std::vector< Vector3f > state)=0;
   virtual void draw() = 0;
   inline size_t getN() const { return _nBodies; }

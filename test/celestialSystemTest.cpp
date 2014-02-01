@@ -44,27 +44,27 @@ TEST( celestialSystemTest, evalTest )
   auto ps = ForwardEuler< CelestialSystem >( sysFile );
 
   for ( size_t i = 0; i < 40; i++ )
-    ps.step( 0.01f );
+    ps.getSystem()->step( 0.01f );
 
   // Check mass
-  ASSERT_EQ( ps.getMass( 0 ), 10.0f );
-  ASSERT_EQ( ps.getMass( 1 ), 10.0f );
+  ASSERT_EQ( ps.getSystem()->getMass( 0 ), 10.0f );
+  ASSERT_EQ( ps.getSystem()->getMass( 1 ), 10.0f );
 
   // Check position
-  ASSERT_FLOAT_EQ( ps.getPosition( 0 ).x(), 0.23644742 );
-  ASSERT_FLOAT_EQ( ps.getPosition( 0 ).y(), -0.90136856 );
-  ASSERT_FLOAT_EQ( ps.getPosition( 0 ).z(), 0.0 );
-  ASSERT_FLOAT_EQ( ps.getPosition( 1 ).x(), -0.23644742 );
-  ASSERT_FLOAT_EQ( ps.getPosition( 1 ).y(), 0.90136856 );
-  ASSERT_FLOAT_EQ( ps.getPosition( 1 ).z(), 0.0 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 0 ).x(), 0.23644742 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 0 ).y(), -0.90136856 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 0 ).z(), 0.0 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 1 ).x(), -0.23644742 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 1 ).y(), 0.90136856 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getPosition( 1 ).z(), 0.0 );
 
   // Check velocity
-  ASSERT_FLOAT_EQ( ps.getVelocity( 0 ).x(), 0.63465178 );
-  ASSERT_FLOAT_EQ( ps.getVelocity( 0 ).y(), -8.07819 );
-  ASSERT_FLOAT_EQ( ps.getVelocity( 0 ).z(), 0.0 );
-  ASSERT_FLOAT_EQ( ps.getVelocity( 1 ).x(), -0.63465178 );
-  ASSERT_FLOAT_EQ( ps.getVelocity( 1 ).y(), 8.07819 );
-  ASSERT_FLOAT_EQ( ps.getVelocity( 1 ).z(), 0.0 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 0 ).x(), 0.63465178 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 0 ).y(), -8.07819 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 0 ).z(), 0.0 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 1 ).x(), -0.63465178 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 1 ).y(), 8.07819 );
+  ASSERT_FLOAT_EQ( ps.getSystem()->getVelocity( 1 ).z(), 0.0 );
 
 }
 
