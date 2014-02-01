@@ -2,6 +2,7 @@
 
 #include <nbody/Integrator.h>
 
+/*
 void ForwardEuler::step( Body &nBodies, float h ) {
   std::vector< Vector3f > X0 = state;;
   std::vector< Vector3f > step = sys->evalF( X0 );
@@ -47,3 +48,5 @@ void RK4::step( std::vector< Vector3f > &state, float h ) {
 
   sys->setState( Xf );
 }
+
+*/
