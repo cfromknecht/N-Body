@@ -14,6 +14,7 @@ public:
   Integrator( std::istream &is ) : _system( new System_T{ is } ) {}
   virtual ~Integrator() { delete _system; }
   virtual void step( float stepSize ) = 0;
+  inline ParticleSystem* getSystem() { return _system; }
 };
 
 template <typename System_T>
