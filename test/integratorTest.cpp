@@ -14,8 +14,10 @@ TEST( integratorTest, forwardEuler )
   for ( size_t i = 0; i < 40; i++ )
     es.step( 0.01f );
   ParticleSystem *system = es.getSystem();
-  std::cout << "pos0: " << system->getPosition( 0 ) << " vel0: " << system->getVelocity( 0 ) << std::endl;
-  std::cout << "pos1: " << system->getPosition( 1 ) << " vel1: " << system->getVelocity( 1 ) << std::endl;
+  std::cout << "pos0: " << system->getPosition( 0 );
+  std::cout << " vel0: " << system->getVelocity( 0 ) << std::endl;
+  std::cout << "pos1: " << system->getPosition( 1 );
+  std::cout << " vel1: " << system->getVelocity( 1 ) << std::endl;
 
   // Check masses
   ASSERT_FLOAT_EQ( system->getMass( 0 ), 10 );

@@ -9,7 +9,10 @@
 
 namespace nbody {
 
-  inline void System::interactBodies( size_t i, size_t j, float softFactor, Vector3f &acc ) const {
+  inline void System::interactBodies( size_t   i, 
+                                      size_t   j, 
+                                      float    softFactor, 
+                                      Vector3f &acc ) const {
     Vector3f r = _body[j].position() - _body[i].position();
     float distance = r.norm() + softFactor;
     float invDist = 1.0f / distance;

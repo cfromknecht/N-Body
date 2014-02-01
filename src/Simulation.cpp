@@ -20,13 +20,15 @@ namespace nbody {
 
     system_clock::time_point tp = system_clock::from_time_t( tt );
     system_clock::duration d = system_clock::now() - tp;
-    std::ostringstream os; os << duration_cast<seconds>( d ).count() << "-sim.txt";
+    std::ostringstream os;
+    os << duration_cast<seconds>( d ).count() << "-sim.txt";
     return os.str();
   }
 
   void Simulation::loadRun( std::istream &input ) {
     if( _system != nullptr ) {
-      throw std::runtime_error( "Tried to attach new system to running simulation!" );
+      throw std::runtime_error( "Tried to attach new system to "
+        "running simulation!" );
     } else {
       _system = new System{input};
     }

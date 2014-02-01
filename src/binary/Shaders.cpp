@@ -1,4 +1,4 @@
-#include <nbody-demo/Shaders.h>
+#include <nbody-binary/Shaders.h>
 
 Shaders::Shaders() : 
   _shaderList{}, _vertexShaderText{}, _fragmentShaderText{} {}
