@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <vector>
 #include <algorithm>
-//#include <cmath>
 
 #include "GlutWrapper.h"
 #include "Shaders.h"
@@ -60,8 +59,10 @@ int theCount = 0;
 
 void NBodyWindow::display() {
   for( size_t i = 0; i < _bufSize / 4; ++i ) { 
-    _buf[4*i] = cosf( 2 * 3.1415f * float( i + theCount / 20000.0f ) / float( _bufSize / 4 ) );
-    _buf[4*i+1] = sinf( 2 * 3.1415f * float( i - theCount / 20000.0f ) / float( _bufSize / 4 ) );
+    _buf[4*i] = cosf( 2 * 3.1415f * float( i + theCount / 20000.0f ) / 
+      float( _bufSize / 4 ) );
+    _buf[4*i+1] = sinf( 2 * 3.1415f * float( i - theCount / 20000.0f ) / 
+      float( _bufSize / 4 ) );
     _buf[4*i+2] = 0.0f;
     _buf[4*i+3] = 1.0f;
     theCount++;
@@ -77,8 +78,6 @@ void NBodyWindow::display() {
   glDrawArrays( GL_TRIANGLE_STRIP, 0, (GLsizei) _bufSize );
   glUseProgram( 0 );
 
-//  glutSwapBuffers();
-//  glutPostRedisplay();
   glfwSwapBuffers( _window );
   glfwPollEvents();
 }

@@ -1,6 +1,4 @@
 #include <GL/glew.h>
-//#define GLFW_INCLUDE_GLCOREARB
-//#define GLFW_INCLUDE_GL3
 #include <GLFW/glfw3.h>
 
 #include <cstdint>
@@ -43,7 +41,8 @@ public:
                Mode debugMode = Mode::NDEBUG );
   ~GlutWrapper();
 
-  void init( int argc, char **argv, int theWidth, int theHeight, Shaders *shaders, size_t bufSize = 0, float *buf = nullptr );
+  void init( int argc, char **argv, int theWidth, int theHeight, 
+    Shaders *shaders, size_t bufSize = 0, float *buf = nullptr );
   void createWindow();
 	void run();
   static GlutWrapper* getInstance();
