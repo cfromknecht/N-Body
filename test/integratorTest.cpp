@@ -10,10 +10,9 @@
 TEST( integratorTest, forwardEuler )
 {
   std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" };
-  auto es = CelestialSystem( sysFile );
-  auto fe = ForwardEuler();
+  auto es = ForwardEuler< CelestialSystem >( sysFile );
   for ( size_t i = 0; i < 1000; i++ )
-    fe.step( &es, 0.01f );
+    es.step( 0.01f );
   std::cout << "pos0: " << es.getPosition( 0 ) << " vel0: " << es.getVelocity( 0 ) << std::endl;
   std::cout << "pos1: " << es.getPosition( 1 ) << " vel1: " << es.getVelocity( 1 ) << std::endl;
 
@@ -41,10 +40,9 @@ TEST( integratorTest, forwardEuler )
 TEST( integratorTest, trapezoidal )
 {
   std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" };
-  auto ts = CelestialSystem( sysFile );
-  auto tr = Trapezoidal();
+  auto ts = Trapezoidal< CelestialSystem >( sysFile );
   for ( size_t i = 0; i < 1000; i++ )
-    tr.step( &ts, 0.01f );
+    ts.step( 0.01f );
   std::cout << "pos0: " << ts.getPosition( 0 ) << " vel0: " << ts.getVelocity( 0 ) << std::endl;
   std::cout << "pos1: " << ts.getPosition( 1 ) << " vel1: " << ts.getVelocity( 1 ) << std::endl;
 
@@ -72,11 +70,10 @@ TEST( integratorTest, trapezoidal )
 TEST( integratorTest, rk4 )
 {
   std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" };
-  auto cs = CelestialSystem( sysFile );
-  auto rk = RK4();
+  auto cs = RK4< CelestialSystem >();
 
   for ( size_t i = 0; i < 1000; i++ )
-    rk.step( &cs, 0.01f );
+    cs.step( 0.01f );
   std::cout << "pos0: " << cs.getPosition( 0 ) << " vel0: " << cs.getVelocity( 0 ) << std::endl;
   std::cout << "pos1: " << cs.getPosition( 1 ) << " vel1: " << cs.getVelocity( 1 ) << std::endl;
 }

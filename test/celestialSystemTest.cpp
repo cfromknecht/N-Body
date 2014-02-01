@@ -41,11 +41,10 @@ TEST( celestialSystemTest, readFile )
 TEST( celestialSystemTest, evalTest )
 {
   std::ifstream sysFile{ "resources/nbody/binary-system-simple.txt" };
-  auto ps = CelestialSystem( sysFile );
-  auto fe = ForwardEuler();
+  auto ps = ForwardEuler< CelestialSystem >( sysFile );
 
   for ( size_t i = 0; i < 40; i++ )
-    fe.step( &ps, .01f );
+    ps.step( 0.01f );
 
   // Check mass
   ASSERT_EQ( ps.getMass( 0 ), 10.0f );

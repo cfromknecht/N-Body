@@ -10,11 +10,9 @@
 
 namespace nbody {
   
-  template <typename Integrator_T>
   class System {
     size_t _nBodies;
     Body *_body;
-    Integrator *_integrator;
     float _softFactor = 1e-9f;
     float _dampingFactor = 1.0f;
     System() = delete;
@@ -27,9 +25,7 @@ namespace nbody {
     ~System() { delete [] _body; }
     void interactBodies( size_t i, size_t j, float softFactor, Vector3f &acc ) const;
     void computeGravitation();
-    void integrateSystem( float dt ) {
-      _integrator->step( _body, dt );
-    }
+    void integrateSystem( float dt );
     void readState( std::istream &input );
     void readState( std::string filename );
     void writeState( std::ostream &output ) const;

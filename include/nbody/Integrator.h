@@ -7,88 +7,90 @@
 
 template <typename System_T>
 class Integrator {
-  ParticleSystem *_system;
   Integrator() = delete;
+protected:
+  ParticleSystem *_system;
 public:
   Integrator( std::istream &is ) : _system( new System_T{ is } ) {}
   virtual ~Integrator() { delete _system; }
-  virtual void step( std::vector< Vector3f > &state, float stepSize ) = 0;
+  virtual void step( float stepSize ) = 0;
 };
 
 template <typename System_T>
-class ForwardEuler : public Integrator {
-  ForwardEuler() = delete();
+class ForwardEuler : public Integrator<System_T> {
+  ForwardEuler() = delete;
 public:
-  ForwardEuler( std::istream &is ) : Integrator{ is } {}
+  ForwardEuler( std::istream &is ) : Integrator<System_T>{ is } {}
   ~ForwardEuler() {};
-  void step( std::vector< Vector3f > &state, float stepSize );
+  void step( float stepSize );
 };
 
 template <typename System_T>
-class Trapezoidal : public Integrator {
+class Trapezoidal : public Integrator<System_T> {
   Trapezoidal() = delete;
 public:
-  Trapezoidal( std::istream &is ) : Integrator{ is } {}
+  Trapezoidal( std::istream &is ) : Integrator<System_T>{ is } {}
   ~Trapezoidal() {}
-  void step( std::vector< Vector3f > &state, float stepSize );
+  void step( float stepSize );
 };
 
 template <typename System_T>
-class RK4 : public Integrator {
+class RK4 : public Integrator<System_T> {
   RK4() = delete;
 public:
-  RK4( std::istream &is ) : Integtrator{ is } {}
+  RK4( std::istream &is ) : Integrator<System_T>{ is } {}
   ~RK4() {}
-  void step( std::vector< Vector3f > &state, float stepSize );
+  void step( float stepSize );
 };
 
-void ForwardEuler::step( Body &nBodies, float h ) {
-  std::vector< Vector3f > X0 = state;;
-  std::vector< Vector3f > step = _system->evalF( X0 );
+template <typename System_T>
+void ForwardEuler<System_T>::step( float h ) {
+  std::vector< Vector3f > X0 = this->_system->getState();
+  std::vector< Vector3f > step = this->_system->evalF( X0 );
   for ( size_t i = 0; i < X0.size(); i++ ) {
     X0[i] += h * step[i];
   }
-  _sytem->setState( X0 );
+  this->_system->setState( X0 );
 }
 
 template <typename System_T>
-void Trapezoid::step( std::vector< Vector3f > &state, float h ) {
-  std::vector< Vector3f > X0 = state;
-  std::vector< Vector3f > X1 = state; 
-  std::vector< Vector3f > step0 = _system->evalF( X0 );
+void Trapezoidal<System_T>::step( float h ) {
+  std::vector< Vector3f > X0 = this->_system->getState();
+  std::vector< Vector3f > X1 = this->_system->getState(); 
+  std::vector< Vector3f > step0 = this->_system->evalF( X0 );
   for ( size_t i = 0; i < X0.size(); i++ )
     X0[i] += h * step0[i];
-  std::vector< Vector3f > step1 = _system->evalF( X0 );
+  std::vector< Vector3f > step1 = this->_system->evalF( X0 );
   for ( size_t i = 0; i < X1.size(); i++ )
     X1[i] += h * (step0[i] + step1[i]) / 2.0f;
-  _system->setState( X1 );
+  this->_system->setState( X1 );
 }
 
 template <typename System_T>
-void RK4::step( float h ) {
-  std::vector< Vector3f > Xi = _system->getState();
-  std::vector< Vector3f > Xf = _system->getState();
+void RK4<System_T>::step( float h ) {
+  std::vector< Vector3f > Xi = this->_system->getState();
+  std::vector< Vector3f > Xf = this->_system->getState();
   std::vector< Vector3f > k1, k2, k3, k4;
-  k1 = _system->evalF( Xi );
+  k1 = this->_system->evalF( Xi );
   k2.reserve( Xi.size() ); k3.reserve( Xi.size() ); k4.reserve( Xi.size() );
   for ( size_t i = 0; i < Xi.size(); i++ )
     Xi[i] += k1[i] * h / 2.0f;
-  k2 = _system->evalF( Xi );
+  k2 = this->_system->evalF( Xi );
 
-  Xi = _system->getState();
+  Xi = this->_system->getState();
   for ( size_t i = 0; i < Xi.size(); i++ )
     Xi[i] += k2[i] * h / 2.0f;
-  k3 = _system->evalF( Xi );
+  k3 = this->_system->evalF( Xi );
 
-  Xi = _system->getState();
+  Xi = this->_system->getState();
   for ( size_t i = 0; i < Xi.size(); i++ )
     Xi[i] += k3[i] * h;
-  k4 = _system->evalF( Xi );
+  k4 = this->_system->evalF( Xi );
 
   for ( size_t i = 0; i < Xi.size(); i++ )
     Xf[i] += h * (k1[i] + 2.0f * k2[i] + 2.0f *k3[i] + k4[i]) / 6.0f;
 
-  _system->setState( Xf );
+  this->_system->setState( Xf );
 }
 
 #endif
