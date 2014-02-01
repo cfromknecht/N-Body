@@ -19,16 +19,15 @@ CelestialSystem::computeGravitationTwixt( const size_t                  i,
 std::vector< Vector3f >
 CelestialSystem::evalF( const std::vector< Vector3f > state ) {
   std::vector< Vector3f > newState;
-  newState.reserve( state.size() );
-  for ( size_t i = 0; i < state.size() / 2; i++ ) {
+  newState.reserve( getN() );
+  for ( size_t i = 0; i < getN(); i++ ) {
     newState.push_back( state[2 * i + 1] );
     Vector3f acc{ 0.0f, 0.0f, 0.0f };
-    for ( size_t j = 0; j < state.size() / 2; j++ ) {
+    for ( size_t j = 0; j < state.size() / 2; j++ )
       if ( i != j ) {
         acc += computeGravitationTwixt( i, j, state );
       }
     newState.push_back( acc );
-    }
   }
   return newState;
 }

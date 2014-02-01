@@ -1,6 +1,7 @@
 #ifndef INTEGRATOR_H_
 #define INTEGRATOR_H_
 
+#include <iostream>
 #include <vector>
 #include <nbody/ParticleSystem.h>
 #include <nbody/Vector3.h>

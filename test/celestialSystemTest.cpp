@@ -45,6 +45,8 @@ TEST( celestialSystemTest, evalTest )
 
   for ( size_t i = 0; i < 40; i++ )
     ps.step( 0.01f );
+  std::cout << "eval pos0: " << ps.getSystem()->getPosition( 0 ) << " vel0: " << ps.getSystem()->getVelocity( 0 ) << std::endl;
+  std::cout << "eval pos1: " << ps.getSystem()->getPosition( 1 ) << " vel1: " << ps.getSystem()->getVelocity( 1 ) << std::endl;
 
   // Check mass
   ASSERT_EQ( ps.getSystem()->getMass( 0 ), 10.0f );
