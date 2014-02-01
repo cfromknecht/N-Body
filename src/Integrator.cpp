@@ -2,23 +2,17 @@
 
 #include "nbody/Integrator.h"
 
-void
-ForwardEuler::step( ParticleSystem *sys,
-                    float          h )
-{
-  std::vector< Vector3f > X0 = sys->getState();
+void ForwardEuler::step( Body &nBodies, float h ) {
+  std::vector< Vector3f > X0 = state;;
   std::vector< Vector3f > step = sys->evalF( X0 );
-  for ( size_t i = 0; i < X0.size(); i++ )
+  for ( size_t i = 0; i < X0.size(); i++ ) {
     X0[i] += h * step[i];
-  sys->setState( X0 );
+  }
 }
 
-void
-Trapezoidal::step( ParticleSystem *sys,
-                   float          h )
-{
-  std::vector< Vector3f > X0 = sys->getState();
-  std::vector< Vector3f > X1 = sys->getState();
+void Trapezoid::step( std::vector< Vector3f > &state, float h ) {
+  std::vector< Vector3f > X0 = state;
+  std::vector< Vector3f > X1 = state; 
   std::vector< Vector3f > step0 = sys->evalF( X0 );
   for ( size_t i = 0; i < X0.size(); i++ )
     X0[i] += h * step0[i];
@@ -28,10 +22,7 @@ Trapezoidal::step( ParticleSystem *sys,
   sys->setState( X1 );
 }
 
-void
-RK4::step( ParticleSystem *sys,
-           float          h )
-{
+void RK4::step( std::vector< Vector3f > &state, float h ) {
   std::vector< Vector3f > Xi = sys->getState();
   std::vector< Vector3f > Xf = sys->getState();
   std::vector< Vector3f > k1, k2, k3, k4;

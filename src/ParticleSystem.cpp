@@ -1,14 +1,18 @@
-#include "nbody/ParticleSystem.h"
+#include <nbody/ParticleSystem.h>
 
 #include <iostream>
 
-ParticleSystem::ParticleSystem( size_t nBodies ) : _nBodies( nBodies ) 
+/*
+template <typename Integrator_T>
+ParticleSystem::ParticleSystem( size_t nBodies ) : 
+  _nBodies{ nBodies },
+  _integrator{ new Integrator_T{} }
 {
   _state.reserve( 2 * _nBodies );  
   _masses.reserve( _nBodies );
 }
 
-ParticleSystem::ParticleSystem( std::istream &is )
+ParticleSystem::ParticleSystem( std::istream &is ) : _integrator{ new Integrator_T{} }
 {
   is >> _nBodies;
   _state.reserve( 2 * _nBodies );
@@ -24,4 +28,5 @@ ParticleSystem::ParticleSystem( std::istream &is )
     _masses.push_back( mass );
   }
 }
+*/
 

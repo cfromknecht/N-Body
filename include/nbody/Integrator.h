@@ -1,30 +1,27 @@
 #ifndef INTEGRATOR_H_
 #define INTEGRATOR_H_
 
-#include "nbody/ParticleSystem.h"
+#include <vector>
+#include <nbody/Vector3.h>
 
-class Integrator
-{
+class Integrator {
 public:
-  virtual void step( ParticleSystem *sys, float stepSize ) = 0;
+  virtual void step( std::vector< Vector3f > &state, float stepSize ) = 0;
 };
 
-class ForwardEuler : public Integrator
-{
+class ForwardEuler : public Integrator {
 public:
-  void step( ParticleSystem *sys, float stepSize );
+  virtual void step( std::vector< Vector3f > &state, float stepSize ) = 0;
 };
 
-class Trapezoidal : public Integrator
-{
+class Trapezoidal : public Integrator {
 public:
-  void step( ParticleSystem *sys, float stepSize );
+  virtual void step( std::vector< Vector3f > &state, float stepSize ) = 0;
 };
 
-class RK4 : public Integrator
-{
+class RK4 : public Integrator {
 public:
-  void step( ParticleSystem *sys, float stepSiez );
+  virtual void step( std::vector< Vector3f > &state, float stepSize ) = 0;
 };
 
 #endif
