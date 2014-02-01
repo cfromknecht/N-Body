@@ -31,6 +31,7 @@ MKDIR := mkdir -p
 
 ## Directories to include headers from
 INCLUDE_FLAGS := -I$(INSTALL_DIR)/include \
+                 -I$(DEV_DIR)/include \
 								 -I$(GTEST_DIR)/include \
 								 -I$(GTEST_DIR) \
                  -I/usr/local/Cellar/include/glew/1.10.0/include \

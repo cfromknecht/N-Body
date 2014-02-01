@@ -77,7 +77,7 @@ $(addsuffix /%.d, $(BUILD_DIRS)) : %.cc
 ## in our build/projectname directory.
 $(BUILD_DIR_PROJ)/%.o : %.cpp ; $(COMPILE_CXX)
 $(BUILD_DIR_PROJ_DEMO)/%.o : %.cpp ; $(COMPILE_CXX)
-$(BUILD_DIR_PROJ_BINARY)/%.o : %.ccp ; $(COMPILE_CXX)
+$(BUILD_DIR_PROJ_BINARY)/%.o : %.cpp ; $(COMPILE_CXX)
 $(BUILD_DIR_PROJ_TEST)/%.o : %.cpp ; $(COMPILE_CXX)
 $(BUILD_DIR_PROJ_TEST)/%.o : %.cc ; $(COMPILE_CXX)
 

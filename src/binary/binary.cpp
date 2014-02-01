@@ -4,8 +4,10 @@
 #include <vector>
 #include <algorithm>
 
-#include <nbody-binary/GlutWrapper.h>
-#include <nbody-binary/Shaders.h>
+#include <nbody/Integrator.h>
+#include <nbody/CelestialSystem.h>
+#include <nbody-demo/GlutWrapper.h>
+#include <nbody-demo/Shaders.h>
 
 namespace nBodyShaders {
   const std::string vertex1(
@@ -22,7 +24,7 @@ namespace nBodyShaders {
     "out vec4 outputColor;\n"
     "void main()\n"
     "{\n"
-    "   outputColor = vec4(0.0, 1.0, 0.0, 1.0);"
+    "   outputColor = vec4(1.0, 0.0, 0.0, 1.0);"
     "}\n"
   );
 } // namespace shaders
@@ -56,17 +58,26 @@ void NBodyWindow::keyboard( unsigned char key, int /*x*/, int /*y*/ ) {
   }
 }
 int theCount = 0;
+std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" }; 
+auto es = RK4<CelestialSystem> (sysFile);
+ParticleSystem *sys = es.getSystem();
 
 void NBodyWindow::display() {
-  for( size_t i = 0; i < _bufSize / 4; ++i ) { 
-    _buf[4*i] = cosf( 2 * 3.1415f * float( i + theCount / 20000.0f ) / 
+  es.step(0.001f);
+  for( size_t j = 0; j < _bufSize / 2; ++j ) { 
+      /*
+    _buf[4*i] = cosf( 2 * 3.1415f * float( i + theCount / 2000.0f ) / 
       float( _bufSize / 4 ) );
-    _buf[4*i+1] = sinf( 2 * 3.1415f * float( i - theCount / 20000.0f ) / 
+    _buf[4*i+1] = sinf( 2 * 3.1415f * float( i - theCount / 2000.0f ) / 
       float( _bufSize / 4 ) );
     _buf[4*i+2] = 0.0f;
     _buf[4*i+3] = 1.0f;
-    theCount++;
-  }
+    theCount++;*/
+        _buf[4*j] = sys->getPosition(j).x();
+        _buf[4*j + 1] = sys->getPosition(j).y();
+        _buf[4*j + 2] = sys->getPosition(j).z();
+        _buf[4*j + 3] = 1.0f;
+    }
 
   glBindBuffer( GL_ARRAY_BUFFER, _positionBufferObject );
   glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof( float ) * _bufSize, _buf );
@@ -75,7 +86,7 @@ void NBodyWindow::display() {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
   glUseProgram( _program );
-  glDrawArrays( GL_TRIANGLE_STRIP, 0, (GLsizei) _bufSize );
+  glDrawArrays( GL_POINTS, 0, (GLsizei) _bufSize );
   glUseProgram( 0 );
 
   glfwSwapBuffers( _window );
@@ -89,18 +100,27 @@ static void error_callback( int error, const char *description ) {
 
 int main( int argc, char ** argv ) {
   try {
-		size_t N = 12;
+		size_t N = 2;
 		size_t bufSize = 4 * N;
 		float *buf = new float[bufSize];
 
-		for( size_t i = 0; i < N; ++i ) {
+		/*for( size_t i = 0; i < N; ++i ) {
 			buf[4*i] = cosf( 2 * 3.1415f * float( i ) / float( N ) );
 			buf[4*i+1] = sinf( 2 * 3.1415f * float( i ) / float( N ) );
 			buf[4*i+2] = 0.0f;
 			buf[4*i+3] = 1.0f;
 			std::cout << buf[4*i] << " " << buf[4*i+1];
       std::cout << " " << buf[4*i+2] << " " << buf[4*i+3] << "\n";
+    }*/
+
+    for (size_t j = 0; j < N; ++j) {
+        buf[4*j] = sys->getPosition(j).x();
+        buf[4*j + 1] = sys->getPosition(j).y();
+        buf[4*j + 2] = sys->getPosition(j).z();
+        buf[4*j + 3] = 1.0f;
     }
+        
+    
 
     glfwSetErrorCallback( error_callback );
 

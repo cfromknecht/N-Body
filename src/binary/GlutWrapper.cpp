@@ -1,5 +1,5 @@
-#include <nbody-binary/GlutWrapper.h>
-#include <nbody-binary/Shaders.h>
+#include <nbody-demo/GlutWrapper.h>
+#include <nbody-demo/Shaders.h>
 
 GlutWrapper *GlutWrapper::_instance = nullptr;
 
