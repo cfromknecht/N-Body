@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "nbody/Integrator.h"
+#include <nbody/Integrator.h>
 
 void
 ForwardEuler::step( ParticleSystem *sys,

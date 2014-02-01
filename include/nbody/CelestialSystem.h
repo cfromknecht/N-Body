@@ -6,7 +6,8 @@
 class CelestialSystem : public ParticleSystem
 {
   CelestialSystem() = delete;
-  Vector3f computeGravitationTwixt( const size_t i, const size_t j );
+  Vector3f computeGravitationTwixt( const size_t i, const size_t j,
+    const std::vector< Vector3f > state );
 public:
   CelestialSystem( const size_t nBodies );
   CelestialSystem( std::istream &is ) : ParticleSystem( is ) {}

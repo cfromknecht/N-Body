@@ -34,20 +34,9 @@ void GlutWrapper::init( int /* argc */, char **argv,
 	if( _windowTitle == "" ) {
 		_windowTitle = std::string( argv[0] );
   }
-/*
-  glutInit( &argc, argv );
-  uint32_t displayMode = GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH | GLUT_STENCIL;
-
-  glutInitDisplayMode( displayMode );
-  glutInitContextVersion( 3, 2 );
-  glutInitContextFlags( GLUT_FORWARD_COMPATIBLE | GLUT_DEBUG );
-  glutInitContextProfile( GLUT_CORE_PROFILE );
-
-  if ( _debugMode == Mode::DEBUG )
-    glutInitContextFlags( GLUT_DEBUG );
-*/
 	if( shaders == nullptr ) {
-		throw std::runtime_error( "GlutWrapper::init was provided null Shaders pointer" );
+		throw std::runtime_error( "GlutWrapper::init was provided null Shaders "
+      "pointer" );
   }
 
 	createWindow();
@@ -63,34 +52,21 @@ void GlutWrapper::init( int /* argc */, char **argv,
 void GlutWrapper::createWindow() {
   if ( !glfwInit() )
     exit( EXIT_FAILURE );
-/*
-  glutInitWindowSize( _width, _height );
-  _windowId = glutCreateWindow( _windowTitle.c_str() );
-*/
+
   glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
   glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
   glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
   glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
   glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
 
-  _window = glfwCreateWindow( _width, _height, _windowTitle.c_str(), nullptr, nullptr );
+  _window = glfwCreateWindow( _width, _height, _windowTitle.c_str(), nullptr, 
+    nullptr );
   glfwMakeContextCurrent( _window );
-
-  std::cout << "Using OpenGL Version " << glfwGetWindowAttrib( _window, GLFW_CONTEXT_VERSION_MAJOR );
-  std::cout << "." << glfwGetWindowAttrib( _window, GLFW_CONTEXT_VERSION_MINOR ) << std::endl;
 
   glewExperimental = GL_TRUE;
   GLenum err = glewInit();
   if ( GLEW_OK != err )
     throw std::runtime_error( "GLEW failed to initialize" );
-/*
-  if ( _debugMode == Mode::DEBUG ) {
-    if ( __GLEW_ARB_debug_output ) {
-      glEnable( GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB );
-      glDebugMessageCallbackARB( (GLDEBUGPROCARB) openglDebug, (void*) 15 );
-    }
-  }
-*/
 }
 
 void GlutWrapper::initVertexBuffers( size_t bufSize, float *buf ) {
@@ -102,18 +78,12 @@ void GlutWrapper::initVertexBuffers( size_t bufSize, float *buf ) {
   } else {
 		_bufSize = bufSize;
 		_buf = buf;
-		glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * bufSize, _buf, GL_STATIC_DRAW );
+		glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * bufSize, _buf, 
+      GL_STATIC_DRAW );
   }
 }
 
 void GlutWrapper::run() {
-/*
-  glBindVertexArrayAPPLE( _vao );
-  glutDisplayFunc( displayCallback );
-  glutReshapeFunc( reshapeCallback );
-  glutKeyboardFunc( keyboardCallback );
-  glutMainLoop();
-*/
   while ( !glfwWindowShouldClose( _window ) )
     display();
   

@@ -1,9 +1,11 @@
 #include "Shaders.h"
 
-Shaders::Shaders() : _shaderList{}, _vertexShaderText{}, _fragmentShaderText{} {}
+Shaders::Shaders() : 
+  _shaderList{}, _vertexShaderText{}, _fragmentShaderText{} {}
 Shaders::~Shaders() {}
 
-GLuint Shaders::compile( GLenum eShaderType, const std::string &strShaderFile ) {
+GLuint Shaders::compile( GLenum eShaderType, const std::string &strShaderFile ) 
+{
   GLuint shader = glCreateShader( eShaderType );
   const char *strFileData = strShaderFile.c_str();
   glShaderSource( shader, 1, &strFileData, nullptr );
@@ -80,7 +82,8 @@ GLuint Shaders::build() {
   
   GLuint openglProgram = link();
 
-  std::for_each( std::begin( _shaderList ), std::end( _shaderList ), glDeleteShader );
+  std::for_each( std::begin( _shaderList ), std::end( _shaderList ), 
+    glDeleteShader );
 
 	return openglProgram;
 }

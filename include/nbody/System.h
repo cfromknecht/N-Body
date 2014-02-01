@@ -38,3 +38,4 @@ namespace nbody {
 } // namespace nbody
 
 #endif // _NBODY_SYSTEM_H
+
