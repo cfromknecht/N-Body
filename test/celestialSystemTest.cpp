@@ -44,7 +44,7 @@ TEST( celestialSystemTest, evalTest )
   auto ps = ForwardEuler< CelestialSystem >( sysFile );
 
   for ( size_t i = 0; i < 40; i++ )
-    ps.getSystem()->step( 0.01f );
+    ps.step( 0.01f );
 
   // Check mass
   ASSERT_EQ( ps.getSystem()->getMass( 0 ), 10.0f );

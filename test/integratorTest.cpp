@@ -72,7 +72,7 @@ TEST( integratorTest, trapezoidal )
 TEST( integratorTest, rk4 )
 {
   std::fstream sysFile{ "resources/nbody/binary-system-simple.txt" };
-  auto cs = RK4< CelestialSystem >();
+  auto cs = RK4< CelestialSystem >( sysFile );
 
   for ( size_t i = 0; i < 1000; i++ )
     cs.step( 0.01f );
