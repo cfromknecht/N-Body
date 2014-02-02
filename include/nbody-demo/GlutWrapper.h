@@ -14,14 +14,15 @@ class GlutWrapper {
   static void reshapeCallback( int theWidth, int theHeight );
   static void keyboardCallback( unsigned char key, int x, int y );
   static void mouseCallback( int button, int state, int x, int y );
+  GLFWwindow* getWindow();
 	static void openglDebug( GLenum source, GLenum type, GLuint id, 
 													 GLenum severity, GLsizei length,
 													 const GLchar* message, GLvoid* userParam );
 	Shaders *_shaders;
 	void initVertexBuffers( size_t bufSize, float *buf );
+  GLFWwindow *_window;
 protected:
   int _width, _height;
-  GLFWwindow *_window;
 //  int _windowId;
   std::string _windowTitle;
 	size_t _bufSize;

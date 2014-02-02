@@ -38,7 +38,7 @@ INCLUDE_FLAGS := -I$(INSTALL_DIR)/include \
                  -I/usr/include/GLFW \
 
 ## Warning flags to use during compilation
-FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic \
+FLAGS := -m64 -Wall -Wextra -pedantic \
          -Wno-deprecated-declarations
 # Use the C99 standard
 CFLAGS := -std=c99 $(FLAGS)

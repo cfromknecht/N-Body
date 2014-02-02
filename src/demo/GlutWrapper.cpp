@@ -1,6 +1,7 @@
 #include <nbody-demo/GlutWrapper.h>
 #include <nbody-demo/Shaders.h>
 
+
 GlutWrapper *GlutWrapper::_instance = nullptr;
 
 GlutWrapper::GlutWrapper() : 
@@ -42,6 +43,10 @@ void GlutWrapper::init( int /* argc */, char **argv,
 	createWindow();
 	_program = shaders->build();
 	initVertexBuffers( bufSize, buf );
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+  glEnable( GL_POINT_SPRITE );
+  glEnable( GL_VERTEX_PROGRAM_POINT_SIZE );
   glGenVertexArrays( 1, &_vao );
   glBindVertexArray( _vao );
   glEnableVertexAttribArray( 0 );
@@ -53,7 +58,7 @@ void GlutWrapper::createWindow() {
   if ( !glfwInit() )
     exit( EXIT_FAILURE );
 
-  glfwWindowHint( GLFW_RESIZABLE, GL_FALSE );
+  glfwWindowHint( GLFW_RESIZABLE, GL_TRUE );
   glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
   glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 1 );
   glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
@@ -67,6 +72,10 @@ void GlutWrapper::createWindow() {
   GLenum err = glewInit();
   if ( GLEW_OK != err )
     throw std::runtime_error( "GLEW failed to initialize" );
+}
+
+GLFWwindow* GlutWrapper::getWindow() {
+    return _window;
 }
 
 void GlutWrapper::initVertexBuffers( size_t bufSize, float *buf ) {
@@ -89,6 +98,7 @@ void GlutWrapper::run() {
   
   glfwDestroyWindow( _window );
 }
+
 
 
 // Jason L. McKesson's helpful debugging function

@@ -22,9 +22,9 @@ $(TARGET_PROJ_BINARY) : LDFLAGS += $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a \
 
 ## Add any more files to this list
 OBJECTS_PROJ_BINARY := \
-	$(BUILD_DIR_PROJ_BINARY)/binary.o \
-  $(BUILD_DIR_PROJ_DEMO)/GlutWrapper.o \
-  $(BUILD_DIR_PROJ_DEMO)/Shaders.o \
+    $(BUILD_DIR_PROJ_BINARY)/binary.o \
+    $(BUILD_DIR_PROJ_DEMO)/GlutWrapper.o \
+    $(BUILD_DIR_PROJ_DEMO)/Shaders.o \
 	#$(BUILD_DIR_PROJ_BINARY)/otherFiles.o \
 	#$(BUILD_DIR_PROJ_BINARY)/moreOtherFiles.o \
 ## Add any more files you like!
