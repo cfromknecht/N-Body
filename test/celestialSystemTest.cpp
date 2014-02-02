@@ -7,8 +7,29 @@
 
 TEST( celestialSystemTest, init )
 {
-  auto ps = CelestialSystem( 20 );
+  float maxAxis = 10.0f,
+        maxSpeed = 1.0f,
+        maxMass = 10.0f;
+  auto ps = CelestialSystem( 20, maxAxis, maxSpeed, maxMass );
   ASSERT_EQ( ps.getN(), (size_t) 20 );
+  for ( size_t i = 0; i < ps.getN(); i++ ) {
+    ASSERT_LE( ps.getMass( i ), maxMass );
+    ASSERT_GE( ps.getMass( i ), 0.0f );
+
+    ASSERT_LE( ps.getPosition( i ).x(), maxAxis );
+    ASSERT_GE( ps.getPosition( i ).x(), -maxAxis );
+    ASSERT_LE( ps.getPosition( i ).y(), maxAxis );
+    ASSERT_GE( ps.getPosition( i ).y(), -maxAxis );
+    ASSERT_LE( ps.getPosition( i ).z(), maxAxis );
+    ASSERT_GE( ps.getPosition( i ).z(), -maxAxis );
+
+    ASSERT_LE( ps.getVelocity( i ).x(), maxSpeed );
+    ASSERT_GE( ps.getVelocity( i ).x(), -maxSpeed );
+    ASSERT_LE( ps.getVelocity( i ).y(), maxSpeed );
+    ASSERT_GE( ps.getVelocity( i ).y(), -maxSpeed );
+    ASSERT_LE( ps.getVelocity( i ).z(), maxSpeed );
+    ASSERT_GE( ps.getVelocity( i ).z(), -maxSpeed );
+  }
 }
 
 TEST( celestialSystemTest, readFile )

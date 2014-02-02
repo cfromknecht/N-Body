@@ -11,11 +11,11 @@ class ParticleSystem
   std::vector< Vector3f > _state;
   std::vector< float >    _masses;
 public:
-  ParticleSystem( size_t nBodies );
+  ParticleSystem( const size_t nBodies, const float maxAxis, 
+      const float maxSpeed, const float maxMass );
   ParticleSystem( std::istream &is );
   virtual ~ParticleSystem() {}
-  virtual std::vector< Vector3f > evalF( const std::vector< Vector3f > state)=0;
-  virtual void draw() = 0;
+  
   inline size_t getN() const { return _nBodies; }
   inline float getMass( const size_t i ) const { return _masses[i]; }
   inline std::vector< Vector3f > getState() const { return _state; };
@@ -26,6 +26,8 @@ public:
   inline Vector3f getVelocity( const size_t i ) const { 
     return _state[2 * i + 1]; 
   }
+
+  virtual std::vector< Vector3f > evalF( const std::vector< Vector3f > state)=0;
 };
 
 #endif
