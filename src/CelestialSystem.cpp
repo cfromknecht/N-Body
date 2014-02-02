@@ -3,13 +3,13 @@
 #include <nbody/CelestialSystem.h>
 #include <nbody/constants.h>
 
-CelestialSystem::CelestialSystem( const size_t nBodies ) : 
-  ParticleSystem( nBodies ) {}
+CelestialSystem::CelestialSystem( const size_t nBodies, const float maxAxis, 
+    const float maxSpeed, const float maxMass) : 
+    ParticleSystem{ nBodies, maxAxis, maxSpeed, maxMass } {}
 
 Vector3f
-CelestialSystem::computeGravitationTwixt( const size_t                  i, 
-                                          const size_t                  j,
-                                          const std::vector< Vector3f > state ) {
+CelestialSystem::computeGravitationTwixt( const size_t i, const size_t j,
+    const std::vector< Vector3f > state ) {
   Vector3f radius = state[2 * j] - state[2 * i];
   float dist = radius.norm();
   float invDistCubed = cube( 1.0f / dist );
@@ -31,6 +31,3 @@ CelestialSystem::evalF( const std::vector< Vector3f > state ) {
   }
   return newState;
 }
-
-void
-CelestialSystem::draw() {}

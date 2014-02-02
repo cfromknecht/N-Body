@@ -102,7 +102,7 @@ $(BUILD_DIRS) $(INSTALL_DIR)/bin \
 	$(MKDIR) $@
 
 # These names don't represent real targets
-.PHONY : all clean release nbody nbody-demo nbody-test
+.PHONY : all clean release $(PROJ_NAME) $(PROJ_NAME)-demo $(PROJ_NAME)-test
 
 # Don't delete our unit test executable even if make is killed or 
 # interrupted while it's being run.

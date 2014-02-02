@@ -39,7 +39,7 @@ INCLUDE_FLAGS := -I$(INSTALL_DIR)/include \
 
 ## Warning flags to use during compilation
 FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic \
-         -Wno-deprecated-declarations
+#         -Wno-deprecated-declarations
 # Use the C99 standard
 CFLAGS := -std=c99 $(FLAGS)
 # Use the C++11 standard and warn on violations of Meyers' "Effective C++"

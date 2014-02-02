@@ -8,7 +8,7 @@ BUILD_DIR_PROJ_DEMO := $(BUILD_DIR)/$(PROJ_NAME)-demo
 
 ## nbody-demo.x depends on libnbody.a having been created first
 $(TARGET_PROJ_DEMO) : | $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a \
-                        $(INSTALL_DIR)/include/nbody-demo
+                        $(INSTALL_DIR)/include/$(PROJ_NAME)-demo
 
 ## Link our nbody-demo.x executable with libnbody.a
 ## (here is where you add any extra third-party library linkings needed)
