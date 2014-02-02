@@ -8,12 +8,12 @@ ParticleSystem::ParticleSystem( const size_t nBodies, const float maxAxis,
   _state.reserve( 2 * _nBodies );  
   _masses.reserve( _nBodies );
   for ( size_t i = 0; i < _nBodies; i++ ) {
-    Vector3f pos{ rand() / static_cast<float>( RAND_MAX / maxAxis ), 
-                  rand() / static_cast<float>( RAND_MAX / maxAxis ),
-                  rand() / static_cast<float>( RAND_MAX / maxAxis ) };
-    Vector3f vel{ rand() / static_cast<float>( RAND_MAX / maxSpeed ),
-                  rand() / static_cast<float>( RAND_MAX / maxSpeed ),
-                  rand() / static_cast<float>( RAND_MAX / maxSpeed ) };
+    Vector3f pos{ rand() / static_cast<float>( RAND_MAX / 2*maxAxis ) - maxAxis,
+                  rand() / static_cast<float>( RAND_MAX / 2*maxAxis ) - maxAxis,
+                  rand() / static_cast<float>( RAND_MAX / 2*maxAxis ) - maxAxis };
+    Vector3f vel{ rand() / static_cast<float>( RAND_MAX / 2*maxSpeed ) - maxSpeed,
+                  rand() / static_cast<float>( RAND_MAX / 2*maxSpeed ) - maxSpeed,
+                  rand() / static_cast<float>( RAND_MAX / 2*maxSpeed ) - maxSpeed };
     float mass = rand() / static_cast<float>( RAND_MAX / maxMass );
     _state.push_back( pos );
     _state.push_back( vel );
